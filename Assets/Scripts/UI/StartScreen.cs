@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class StartScreen : GameScreen
 {
-    public event UnityAction PlayButtonClick;
+   public event UnityAction PlayButtonClick;
 
 
     protected override void OnButtonClick()

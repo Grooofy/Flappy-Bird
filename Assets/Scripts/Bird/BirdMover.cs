@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class BirdMover : MonoBehaviour
@@ -16,11 +17,22 @@ public class BirdMover : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Quaternion _maxRotation;
     private Quaternion _minRotation;
+    private Bird _bird;
+
+    private void OnEnable()
+    {
+        _bird = GetComponent<Bird>();
+        _bird.LevelUp += UpperSpeed;
+    }
     
+    private void OnDisable()
+    {
+        _bird.LevelUp -= UpperSpeed;
+    }
+  
     private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        
         _maxRotation = Quaternion.Euler(0, 0, _maxRotationZ);
         _minRotation = Quaternion.Euler(0, 0, _minRotationZ);
         
@@ -40,8 +52,15 @@ public class BirdMover : MonoBehaviour
 
     public void ResetBird()
     {
+        _speed = 3;
         transform.position = _startPosition;
         transform.rotation = Quaternion.Euler(0,0,0);
         _rigidbody2D.velocity = Vector2.zero;
     }
+    
+    private void UpperSpeed()
+    {
+        _speed += 3;
+    }
+
 }

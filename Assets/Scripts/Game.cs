@@ -31,8 +31,8 @@ public class Game : MonoBehaviour
 
     private void OnPlayButtonClick()
     {
-        _startScreen.Close();
         StartGame();
+        _startScreen.Close();
     }
 
     private void OnRestartButtonClick()
