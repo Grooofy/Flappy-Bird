@@ -8,6 +8,7 @@ public class Bird : MonoBehaviour
     private BirdMover _birdMover;
     private int _score;
     private int _lvl;
+    public int GlobalScore { get; private set; }
 
     public event UnityAction GameOver;
     public event UnityAction<int> ScoreChanged;
@@ -29,13 +30,14 @@ public class Bird : MonoBehaviour
 
     public void Die()
     {
+        TrySaveScore(_score);
         GameOver?.Invoke();
     }
 
     public void IncreaseScore()
     {
         _score++;
-        UpgradeLvl();
+        UpgradeLvl();       
         ScoreChanged?.Invoke(_score);
     }
 
@@ -50,5 +52,14 @@ public class Bird : MonoBehaviour
             LevelUp?.Invoke();
             _lvl = 0;
         }
+    }
+
+    private void TrySaveScore(int score)
+    {
+        if (GlobalScore < score)
+        {
+            GlobalScore = score;
+        }
+        PlayerPrefs.SetInt("Score", GlobalScore);
     }
 }

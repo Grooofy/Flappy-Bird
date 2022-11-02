@@ -24,7 +24,7 @@ public class PipeGenerator : ObjectPool
 
     private void UpperSpeed()
     {
-        _secondsBetweenSpawn -= 0.25f;
+        _secondsBetweenSpawn -= 0.5f;
     }
 
     private void Start()
